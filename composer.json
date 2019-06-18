@@ -3,7 +3,7 @@
   "type": "library",
   "description": "Styla Spryker Module",
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.1",
     "spryker/storage": "^3.0.0"
   },
   "require-dev": {
