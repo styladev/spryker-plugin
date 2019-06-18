@@ -67,7 +67,7 @@ class SprykerPluginClient extends AbstractClient implements SprykerPluginClientI
      * @return string
      */
     private function buildStorageKey($key): string {
-        return $this->getCurrentLocale() . '-' . $key . '_v2';
+        return $this->getCurrentLocale() . '-' . $key;
     }
 
     /**
