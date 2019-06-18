@@ -1,0 +1,54 @@
+{% extends template('page-layout-main') %}
+
+{% define data = {
+    stylaClient        : _view.stylaClient,
+    stylaInitScriptUrl : _view.stylaInitScriptUrl,
+    stylaSeoHead       : _view.stylaSeoHead,
+    stylaSeoBody       : _view.stylaSeoBody,
+    stylaUrl           : _view.stylaUrl,
+} %}
+
+{% block headTitle %}
+    {% if data.stylaSeoHead is null %}
+        {{parent()}}
+    {% endif %}
+{% endblock %}
+
+{% block meta %}
+    <!-- STYLA SEO HEAD START -->
+    {{ data.stylaSeoHead | raw }}
+    <!-- STYLA SEO HEAD END -->
+{% endblock %}
+
+{% block headScripts %}
+    {{ parent() }}
+    <script src="{{ data.stylaInitScriptUrl }}" async></script>
+{% endblock %}
+
+{% block header %}
+
+    {% embed organism('header') with {
+        modifiers: ['border-less-bottom']
+    } only %}
+        {% block mobile %}
+            <a href="#" class="link link--alt js-page-layout-main__side-drawer-trigger">
+                {% include atom('icon') with {
+                    modifiers: ['big'],
+                    data: {
+                        name: 'bars'
+                    }
+                } only %}
+            </a>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block pageInfo %}{% endblock %}
+
+{% block content %}
+    <!-- STYLA SEO BODY START -->
+    <div data-styla-client="{{ data.stylaClient }}" data-styla-content="{{ data.stylaUrl }}">
+        {{ data.stylaSeoBody | raw }}
+    </div>
+    <!-- STYLA SEO BODY END -->
+{% endblock %}
