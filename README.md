@@ -14,6 +14,18 @@ composer require styladev/spryker-plugin
 
 ## Configuration
 
+Add the `Styladev` namespace to the spryker known namespaces:
+
+```
+$config[KernelConstants::CORE_NAMESPACES] = [
+    'SprykerShop',
+    'SprykerEco',
+    'Spryker',
+    'SprykerSdk',
+    'Styladev'
+];
+```
+
 Within the Spryker configuration for each locale the Styla client (you get it after signing contract) and additional the paths on which the styla integration should be displayed needs to be configured. The default configuration can be added to `config_default.php` and overridable with the more specific locale variants for example `config_default_DE.php`. 
 
 The configuration should look like this:
