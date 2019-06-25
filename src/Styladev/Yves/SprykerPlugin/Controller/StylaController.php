@@ -29,14 +29,16 @@ class StylaController extends AbstractController
         $pathName = ltrim($url['path'], '/');
 
         $seoJson = $this->getClient()->getSeoData($pathName);
-        $seoHead = isset($seoJson->html->head) ? $seoJson->html->head : "";
+        $seoHead = isset($seoJson->html->head) ? $this->cleanTitleTag($seoJson->html->head) : "";
         $seoBody = isset($seoJson->html->body) ? $seoJson->html->body : "";
+        $seoTitle = $this->getPageTitle($seoJson);
 
         $viewData = [
             'stylaClient'        => $client,
             'stylaInitScriptUrl' => $initJsScript,
             'stylaSeoHead'       => $seoHead,
             'stylaSeoBody'       => $seoBody,
+            'stylaSeoTitle'      => $seoTitle,
             'stylaUrl'           => $pathName,
         ];
 
@@ -45,5 +47,32 @@ class StylaController extends AbstractController
             [],
             '@SprykerPlugin/styla/index.twig'
         );
+    }
+
+    private function cleanTitleTag($seoHead): string
+    {
+        return $this->cleanTag($seoHead, "title");
+    }
+
+    private function cleanTag($searchString, $tagName): string
+    {
+        return preg_replace('/<' . $tagName . '.*?>(.*)?<\/' . $tagName . '>/im', '', $searchString);
+    }
+
+    private function getPageTitle($seoJson): string
+    {
+        if (!isset($seoJson->tags)) {
+            return null;
+        }
+
+        $pageTitle = null;
+        foreach($seoJson->tags as $tag) {
+            if ($tag->tag == 'title') {
+                $pageTitle = $tag->content;
+                break;
+            }
+        }
+
+        return $pageTitle;
     }
 }

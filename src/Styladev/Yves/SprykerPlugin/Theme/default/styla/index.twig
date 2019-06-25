@@ -5,12 +5,15 @@
     stylaInitScriptUrl : _view.stylaInitScriptUrl,
     stylaSeoHead       : _view.stylaSeoHead,
     stylaSeoBody       : _view.stylaSeoBody,
+    stylaSeoTitle      : _view.stylaSeoTitle,
     stylaUrl           : _view.stylaUrl,
 } %}
 
 {% block headTitle %}
-    {% if data.stylaSeoHead is null %}
+    {% if data.stylaSeoTitle is null %}
         {{parent()}}
+    {% else %}
+        {{data.stylaSeoTitle}}
     {% endif %}
 {% endblock %}
 
