@@ -2,7 +2,7 @@
 
 This module provides integration with Styla content management system. It embeds Styla content on your Spryker (via JS), takes care of routing for it and server-side rendering of HTML tags. 
 
-You can read more about Styla itself here: https://styladocs.atlassian.net/wiki/spaces/CO/pages/9961481/Technical+Integration
+[This documentation page](https://docs.styla.com/) should provide you an overview of how Styla works in general. 
 
 ## Installation
 
